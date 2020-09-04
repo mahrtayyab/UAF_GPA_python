@@ -14,12 +14,16 @@ from openpyxl.styles import Border, Side
 import datetime
 from pathlib import Path
 
+# ------Import all required libraries------ #
+
+# -- Force terminal or command prompt to full screen for better banner visuals -- #
 if os.name == "nt":
     os.system("mode 600")
 else:
     os.system("wmctrl -r :ACTIVE: -b add,fullscreen")
 
 date = f"{datetime.datetime.now():%Y-%m-%d}"
+
 if os.name == "nt":
     os.system("cls")
 else:
@@ -27,7 +31,9 @@ else:
 
 foo = [banner1.banner1]
 print(colors.CWHITE + random.choice(foo))
+
 time.sleep(1)
+
 print("""
 Welcome to GPA calculator for UAF purely build using PYTHON.
 """)
@@ -37,6 +43,8 @@ print("""
 3.Enter number of courses in each semester.
 """)
 time.sleep(3)
+
+
 move_on = input(colors.CWHITE + "Press any key to continue")
 if os.name == "nt":
     os.system("cls")
@@ -59,7 +67,10 @@ elif last_semester == 0:
     """)
     print("")
     exit()
+
+
 path = Path.cwd()
+
 print("Connecting to LMS......")
 options = Options()
 # -- options.binary_location = "C:\\Program Files\\Google\\Chrome Dev\\Application\\chrome.exe"  -- #
@@ -67,10 +78,15 @@ options = Options()
 options.add_argument("headless")
 
 options.add_argument('--log-level=3')
+
+# -- Setting chromedriver executable and binary location based on os name -- #
+# -- Provided the chromedriver executable and binary is in same directory -- #
+
 if os.name == "nt":
     driver = webdriver.Chrome(options=options, executable_path=r'{}/chromedriver.exe'.format(path))
-else:
+elif os.name == "posix":
     driver = webdriver.Chrome(options=options, executable_path=r'{}/chromedriver'.format(path))
+
 driver.get("http://lms.uaf.edu.pk/login/index.php")
 
 user = driver.find_element_by_id('REG')

@@ -143,6 +143,8 @@ qp160 = 20
 
 # -- Quality Points -- #
 
+# -- Loading previously saved spreadsheet -- #
+
 wb = load_workbook(LMS.fname)
 ws = wb['Sheet']
 cell_count = ws.max_row
@@ -1336,7 +1338,8 @@ elif os.name == "posix":
 print("Killing webdriver process")
 print("Done!")
 
-# subprocess.call(r"kill.bat")
+if os.name == "nt":
+    subprocess.call(r"kill.bat")
 go = input("CLose the window to exit")
 os._exit(0)
 
